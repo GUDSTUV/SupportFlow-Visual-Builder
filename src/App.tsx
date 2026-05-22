@@ -1,11 +1,12 @@
+import { useFlowStore } from './store/flowStore'
 
-function App() {
+export default function App() {
+  const nodes = useFlowStore(state => state.nodes)
 
   return (
-     <div className="h-screen flex items-center justify-center bg-blue-500 text-white text-2xl">
-      Tailwind v4 is working
+    <div className="p-4">
+      <h1 className="text-xl font-bold">Nodes Loaded:</h1>
+      <pre>{JSON.stringify(nodes, null, 2)}</pre>
     </div>
   )
 }
-
-export default App
