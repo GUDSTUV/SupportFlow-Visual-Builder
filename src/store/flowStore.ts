@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { FlowNode, Option, AppMode } from '../types/flow';
+import type { FlowNode, Option, AppMode, NodeType } from '../types/flow';
 import flowData from '../data/flow_data.json';
 interface FlowStore {
   nodes: FlowNode[];
@@ -19,6 +19,7 @@ interface FlowStore {
   updateOptionTarget: (nodeId: string, optionIndex: number, nextId: string) => void;
   addOption: (nodeId: string) => void;
   removeOption: (nodeId: string, optionIndex: number) => void;
+  addNode: (type: NodeType) => void;
   moveNode: (id: string, x: number, y: number) => void;
   // History
   undo: () => void;
@@ -102,6 +103,33 @@ export const useFlowStore = create<FlowStore>((set, get) => ({
         const options = n.options.filter((_, i) => i !== optionIndex);
         return { ...n, options };
       }),
+    });
+  },
+  addNode: (type) => {
+    const { nodes, history } = get();
+    const nextId = String(
+      nodes.reduce((max, node) => Math.max(max, Number(node.id) || 0), 0) + 1,
+    );
+    const defaultNextId = nodes[0]?.id || '';
+    const index = nodes.length;
+    const col = index % 4;
+    const row = Math.floor(index / 4);
+    const position = { x: 140 + col * 280, y: 120 + row * 220 };
+    const text =
+      type === 'start'
+        ? 'New start node'
+        : type === 'question'
+          ? 'New question'
+          : 'New end node';
+    const options = type === 'end' ? [] : [{ label: 'New option', nextId: defaultNextId }];
+
+    const newNode: FlowNode = { id: nextId, type, text, position, options };
+
+    set({
+      history: [...history.slice(-MAX_HISTORY), snapshot(nodes)],
+      future: [],
+      nodes: [...nodes, newNode],
+      selectedNodeId: nextId,
     });
   },
   moveNode: (id, x, y) => {

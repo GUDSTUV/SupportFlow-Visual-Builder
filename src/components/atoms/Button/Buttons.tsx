@@ -11,12 +11,12 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    'bg-brand hover:bg-brand/90 text-text-primary border border-accent/30',
+    'bg-light hover:bg-light/90 text-canvas border border-light/40',
   ghost:
-    'bg-transparent hover:bg-surface text-accent hover:text-text-primary border border-transparent',
+    'bg-surface/50 hover:bg-surface text-light border border-accent/20',
   danger:
     'bg-red-500/10 hover:bg-red-500/20 text-red-300 border border-red-500/30',
-  play: 'bg-accent hover:bg-accent/90 text-canvas border border-accent/40',
+  play: 'bg-brand hover:bg-brand/90 text-text-primary border border-accent/40',
 };
 const sizeClasses: Record<ButtonSize, string> = {
   sm: 'px-2.5 py-1 text-xs gap-1.5',
@@ -49,7 +49,7 @@ export const Button: React.FC<ButtonProps> = ({
         className,
       )}
     >
-      {icon && <span className="flex-shrink-0">{icon}</span>}
+      {icon && <span className="shrink-0">{icon}</span>}
       {children}
     </button>
   );

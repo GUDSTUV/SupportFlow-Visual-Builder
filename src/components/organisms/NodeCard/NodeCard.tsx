@@ -35,7 +35,7 @@ export const NodeCard: React.FC<NodeCardProps> = ({
       onClick={() => onSelect?.(node.id)}
       style={{ left: node.position.x, top: node.position.y }}
       className={clsx(
-        'absolute w-65 rounded-xl border bg-surface px-4 py-3',
+        'absolute w-65 rounded-xl border bg-surface px-4 py-3 select-none touch-none',
         'shadow-lg shadow-black/30 transition-all duration-150',
         'cursor-grab active:cursor-grabbing',
         isSelected ? 'border-accent/60 ring-2 ring-accent/40' : 'border-accent/15',

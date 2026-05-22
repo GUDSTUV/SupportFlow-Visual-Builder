@@ -1,8 +1,8 @@
 import React from 'react';
-import type { Option } from '../../../types/flow';
+import type { Option, NodeType } from '../../../types/flow';
 interface NodeAnswersProps {
   options: Option[];
-  nodeType: 'start' | 'question' | 'end';
+  nodeType: NodeType;
 }
 export const NodeAnswers: React.FC<NodeAnswersProps> = ({ options, nodeType }) => {
   if (nodeType === 'end' || options.length === 0) return null;
