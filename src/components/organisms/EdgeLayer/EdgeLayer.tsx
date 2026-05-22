@@ -19,13 +19,11 @@ function buildEdgePath(
   toRect: DOMRect,
   containerRect: DOMRect
 ): { path: string; labelX: number; labelY: number } {
-  // Relative to container
   const fromX = fromRect.x - containerRect.x + fromRect.width / 2;
   const fromY = fromRect.y - containerRect.y + fromRect.height / 2;
   const toX = toRect.x - containerRect.x + toRect.width / 2;
   const toY = toRect.y - containerRect.y + toRect.height / 2;
 
-  // Cubic bezier with control points
   const dx = toX - fromX;
   const cy1 = fromY;
   const cx2 = toX - dx * 0.3;

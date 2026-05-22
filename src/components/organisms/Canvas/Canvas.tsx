@@ -33,7 +33,6 @@ export const Canvas: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
-  // Pan on middle-mouse or alt+drag
   const handleMouseDown = useCallback(
     (e: React.MouseEvent) => {
       if (e.button === 1 || e.altKey) {
@@ -41,7 +40,6 @@ export const Canvas: React.FC = () => {
         panStart.current = { x: e.clientX, y: e.clientY, ox: canvasOffset.x, oy: canvasOffset.y };
         e.preventDefault();
       } else {
-        // Deselect when clicking empty canvas
         selectNode(null);
       }
     },
@@ -123,9 +121,21 @@ export const Canvas: React.FC = () => {
     };
   }, [canvasOffset, canvasScale]);
 
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const handleNativeWheel = (event: WheelEvent) => {
+      if (!event.altKey) return;
+      event.preventDefault();
+    };
+
+    container.addEventListener('wheel', handleNativeWheel, { passive: false });
+    return () => container.removeEventListener('wheel', handleNativeWheel);
+  }, []);
+
   const handleWheel = useCallback(
     (e: React.WheelEvent) => {
-      e.preventDefault();
       if (e.altKey) {
         const delta = -e.deltaY * 0.001;
         setCanvasScale(Math.max(0.3, Math.min(2, canvasScale + delta)));
@@ -181,8 +191,6 @@ export const Canvas: React.FC = () => {
           />
         ))}
       </div>
-
-      {/* Canvas overlays moved to footer */}
     </div>
   );
 };
