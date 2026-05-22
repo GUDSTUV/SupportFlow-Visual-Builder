@@ -1,28 +1,27 @@
-export interface FlowOption {
-  label: string
-  nextId: string
+export type NodeType = 'start' | 'question' | 'end';
+export interface Option {
+  label: string;
+  nextId: string;
 }
-
-export interface FlowPosition {
-  x: number
-  y: number
-}
-
 export interface FlowNode {
-  id: string
-  type: 'start' | 'question' | 'end'
-  text: string
-  position: FlowPosition
-  options: FlowOption[]
+  id: string;
+  type: NodeType;
+  text: string;
+  position: { x: number; y: number };
+  options: Option[];
 }
-
+export interface FlowMeta {
+  theme: 'dark' | 'light';
+  canvas_size: { w: number; h: number };
+}
 export interface FlowData {
-  meta: {
-    theme: string
-    canvas_size: {
-      w: number
-      h: number
-    }
-  }
-  nodes: FlowNode[]
+  meta: FlowMeta;
+  nodes: FlowNode[];
+}
+export type AppMode = 'editor' | 'preview';
+export interface EdgePath {
+  id: string;
+  path: string;
+  label: string;
+  color: string;
 }

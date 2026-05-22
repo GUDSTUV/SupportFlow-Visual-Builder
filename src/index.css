@@ -2,10 +2,19 @@
 
 @import "tailwindcss";
 
+@theme {
+  --color-canvas: #16171D;
+  --color-surface: #23232A;
+  --color-text-primary: #F3F4F6;
+  --color-accent: #9CA38E;
+  --color-light: #F1F5F9;
+  --color-brand: #1D293D;
+}
+
 :root {
   font-family: 'Poppins', sans-serif;
-  color: #0f172a;
-  background-color: #f8fafc;
+  color: var(--color-text-primary);
+  background-color: var(--color-canvas);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -29,5 +38,5 @@ body,
 body {
   font-family: 'Poppins', sans-serif;
   overflow: hidden;
-  background-color: #f8fafc;
+  background-color: var(--color-canvas);
 }
