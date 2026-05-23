@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useLayoutEffect, useMemo, useState } from 'react';
 import type { FlowNode } from '../../../types/flow';
 
 interface EdgeRender {
@@ -14,15 +14,22 @@ interface EdgeLayerProps {
   containerRef: React.RefObject<HTMLDivElement | null>;
 }
 
+interface NodeSize {
+  width: number;
+  height: number;
+}
+
+const FALLBACK_NODE_WIDTH = 260;
+const FALLBACK_NODE_HEIGHT = 140;
+
 function buildEdgePath(
-  fromRect: DOMRect,
-  toRect: DOMRect,
-  containerRect: DOMRect
+  from: { x: number; y: number },
+  to: { x: number; y: number }
 ): { path: string; labelX: number; labelY: number } {
-  const fromX = fromRect.x - containerRect.x + fromRect.width / 2;
-  const fromY = fromRect.y - containerRect.y + fromRect.height / 2;
-  const toX = toRect.x - containerRect.x + toRect.width / 2;
-  const toY = toRect.y - containerRect.y + toRect.height / 2;
+  const fromX = from.x;
+  const fromY = from.y;
+  const toX = to.x;
+  const toY = to.y;
 
   const dx = toX - fromX;
   const cy1 = fromY;
@@ -38,70 +45,70 @@ function buildEdgePath(
 }
 
 export const EdgeLayer: React.FC<EdgeLayerProps> = ({ nodes, containerRef }) => {
-  const [edges, setEdges] = useState<EdgeRender[]>([]);
+  const [nodeSizes, setNodeSizes] = useState<Record<string, NodeSize>>({});
 
   useLayoutEffect(() => {
     const container = containerRef.current;
     if (!container) return;
+    const nextSizes: Record<string, NodeSize> = {};
+    const elements = container.querySelectorAll<HTMLElement>('[data-node-id]');
 
-    const updateEdges = () => {
-      const containerRect = container.getBoundingClientRect();
-      const nextEdges: EdgeRender[] = [];
+    elements.forEach((el) => {
+      const id = el.dataset.nodeId;
+      if (!id) return;
+      nextSizes[id] = { width: el.offsetWidth, height: el.offsetHeight };
+    });
 
-      nodes.forEach((node) => {
-        const fromEl = container.querySelector(`[data-node-id="${node.id}"]`) as HTMLElement | null;
+    setNodeSizes(nextSizes);
+  }, [nodes, containerRef]);
 
-        if (!fromEl) return;
+  const edges = useMemo(() => {
+    const nextEdges: EdgeRender[] = [];
 
-        node.options.forEach((option, index) => {
-          if (!option.nextId) return;
+    nodes.forEach((node) => {
+      const fromSize = nodeSizes[node.id] ?? {
+        width: FALLBACK_NODE_WIDTH,
+        height: FALLBACK_NODE_HEIGHT,
+      };
+      const fromPoint = {
+        x: node.position.x + fromSize.width / 2,
+        y: node.position.y + fromSize.height / 2,
+      };
 
-          const toEl = container.querySelector(`[data-node-id="${option.nextId}"]`) as HTMLElement | null;
+      node.options.forEach((option, index) => {
+        if (!option.nextId) return;
+        const target = nodes.find((targetNode) => targetNode.id === option.nextId);
+        if (!target) return;
 
-          if (!toEl) return;
+        const toSize = nodeSizes[target.id] ?? {
+          width: FALLBACK_NODE_WIDTH,
+          height: FALLBACK_NODE_HEIGHT,
+        };
+        const toPoint = {
+          x: target.position.x + toSize.width / 2,
+          y: target.position.y + toSize.height / 2,
+        };
 
-          const { path, labelX, labelY } = buildEdgePath(
-            fromEl.getBoundingClientRect(),
-            toEl.getBoundingClientRect(),
-            containerRect
-          );
+        const { path, labelX, labelY } = buildEdgePath(fromPoint, toPoint);
 
-          nextEdges.push({
-            id: `${node.id}-${option.nextId}-${index}`,
-            label: option.label,
-            path,
-            labelX,
-            labelY,
-          });
+        nextEdges.push({
+          id: `${node.id}-${option.nextId}-${index}`,
+          label: option.label,
+          path,
+          labelX,
+          labelY,
         });
       });
+    });
 
-      setEdges(nextEdges);
-    };
-
-    const frame = requestAnimationFrame(updateEdges);
-    window.addEventListener('resize', updateEdges);
-
-    return () => {
-      cancelAnimationFrame(frame);
-      window.removeEventListener('resize', updateEdges);
-    };
-  }, [nodes, containerRef]);
+    return nextEdges;
+  }, [nodes, nodeSizes]);
 
   return (
     <svg className="absolute inset-0 h-full w-full pointer-events-none">
       {edges.map((edge) => (
         <g key={edge.id}>
           <path d={edge.path} className="stroke-accent/50" fill="none" strokeWidth={1.5} />
-          <text
-            x={edge.labelX}
-            y={edge.labelY}
-            textAnchor="middle"
-            dominantBaseline="middle"
-            className="fill-light/70 text-[10px]"
-          >
-            {edge.label}
-          </text>
         </g>
       ))}
     </svg>

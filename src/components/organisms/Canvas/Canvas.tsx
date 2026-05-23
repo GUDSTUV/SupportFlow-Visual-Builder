@@ -13,6 +13,7 @@ export const Canvas: React.FC = () => {
     canvasScale,
     setCanvasOffset,
     setCanvasScale,
+    beginNodeDrag,
   } = useFlowStore(
     useShallow((state) => ({
       nodes: state.nodes,
@@ -22,6 +23,7 @@ export const Canvas: React.FC = () => {
       canvasScale: state.canvasScale,
       setCanvasOffset: state.setCanvasOffset,
       setCanvasScale: state.setCanvasScale,
+      beginNodeDrag: state.beginNodeDrag,
     })),
   );
 
@@ -83,10 +85,11 @@ export const Canvas: React.FC = () => {
         pointerX: contentX,
         pointerY: contentY,
       };
+      beginNodeDrag();
       dragPointer.current = { id: event.pointerId, el: event.currentTarget };
       event.currentTarget.setPointerCapture(event.pointerId);
     },
-    [canvasOffset, canvasScale, nodes, selectNode],
+    [beginNodeDrag, canvasOffset, canvasScale, nodes, selectNode],
   );
 
   useEffect(() => {

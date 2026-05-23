@@ -20,6 +20,7 @@ interface FlowStore {
   addOption: (nodeId: string) => void;
   removeOption: (nodeId: string, optionIndex: number) => void;
   addNode: (type: NodeType) => void;
+  beginNodeDrag: () => void;
   moveNode: (id: string, x: number, y: number) => void;
   // History
   undo: () => void;
@@ -130,6 +131,13 @@ export const useFlowStore = create<FlowStore>((set, get) => ({
       future: [],
       nodes: [...nodes, newNode],
       selectedNodeId: nextId,
+    });
+  },
+  beginNodeDrag: () => {
+    const { nodes, history } = get();
+    set({
+      history: [...history.slice(-MAX_HISTORY), snapshot(nodes)],
+      future: [],
     });
   },
   moveNode: (id, x, y) => {
