@@ -1,5 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
+import { Bot } from 'lucide-react';
 
 interface ChatBubbleProps {
   message: string;
@@ -13,8 +14,8 @@ export const ChatBubble: React.FC<ChatBubbleProps> = ({ message, isBot, animate 
       className={clsx('flex', isBot ? 'justify-start' : 'justify-end', animate && 'animate-fadeIn')}
     >
       {isBot && (
-        <div className="w-8 h-8 rounded-full bg-brand border border-accent/30 flex items-center justify-center text-xs font-bold text-accent mr-2 shrink-0 mt-1">
-          AI
+        <div className="w-8 h-8 rounded-full bg-brand border border-accent/30 flex items-center justify-center text-accent mr-2 shrink-0 mt-1">
+          <Bot className="h-4 w-4" />
         </div>
       )}
       <div

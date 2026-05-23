@@ -3,7 +3,7 @@ import type { ElementType } from 'react';
 import clsx from 'clsx';
 
 type TypographyVariant = 'heading' | 'body' | 'label';
-type TypographySize = 'sm' | 'md' | 'lg';
+type TypographySize = 'sm' | 'md' | 'lg' | 'xl';
 
 interface TypographyProps extends React.HTMLAttributes<HTMLElement> {
 	as?: ElementType;
@@ -22,16 +22,19 @@ const variantSizeClasses: Record<TypographyVariant, Record<TypographySize, strin
 		sm: 'text-base',
 		md: 'text-lg',
 		lg: 'text-2xl',
+		xl: "",
 	},
 	body: {
 		sm: 'text-xs',
 		md: 'text-sm',
 		lg: 'text-base',
+		xl: "",
 	},
 	label: {
 		sm: 'text-xs',
-		md: 'text-xs',
-		lg: 'text-sm',
+		md: 'text-sm',
+		lg: 'text-base',
+		xl: 'text-xxl',
 	},
 };
 
