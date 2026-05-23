@@ -43,26 +43,29 @@ export const Header: React.FC = () => {
   }, [menuOpen]);
 
   return (
-    <header className="relative z-30 flex flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-6 sm:py-0 sm:h-16 bg-brand border-b border-accent/20">
+    <header className="relative z-30 flex flex-col gap-3 px-4 py-3 md:flex-row md:items-center md:justify-between md:px-6 md:py-0 md:h-16 bg-brand border-b border-accent/20">
       <div className="flex items-center gap-3">
         <div className="h-8 w-8 rounded-lg bg-canvas border border-accent/20 flex items-center justify-center text-accent text-xs font-semibold">
           SF
         </div>
         <div className="flex flex-col">
-          <Typography variant="heading" size="md" className="text-base sm:text-lg">
+          <Typography variant="heading" size="md" className="text-base md:text-lg">
             SupportFlow Builder
           </Typography>
-          <Typography variant="label" size="sm" className="text-[10px] sm:text-xs text-accent/60">
+          <Typography variant="label" size="sm" className="text-[10px] md:text-xs text-accent/60">
             Visual Decision Tree
           </Typography>
+          <div className="hidden md:block lg:hidden text-[10px] text-accent/60 mt-0.5">
+            Alt+drag to pan · Alt+scroll to zoom · Click node to edit
+          </div>
         </div>
       </div>
 
-      <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[10px] sm:text-[15px] text-accent/40">
+      <div className="hidden lg:block pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[10px] lg:text-[15px] text-accent/40">
         Alt+drag to pan · Alt+scroll to zoom · Click node to edit
       </div>
 
-      <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto justify-start sm:justify-end">
+      <div className="hidden md:flex flex-wrap items-center gap-2 w-full md:w-auto justify-start md:justify-end">
         <div className="relative" ref={menuRef}>
           <Button
             variant="ghost"

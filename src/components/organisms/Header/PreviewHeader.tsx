@@ -23,7 +23,7 @@ export const PreviewHeader: React.FC = () => {
 				</div>
 			</div>
 
-			<div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[10px] sm:text-[15px] text-accent/40">
+			<div className="hidden sm:block pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[10px] sm:text-[15px] text-accent/40">
 				Preview mode · Click an option to continue
 			</div>
 

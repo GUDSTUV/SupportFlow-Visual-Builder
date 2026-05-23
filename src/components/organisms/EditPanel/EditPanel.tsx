@@ -52,6 +52,8 @@ export const EditPanel: React.FC = () => {
         <section>
           <Textarea
             label="Question / Message Text"
+            id={`node-text-${node.id}`}
+            name={`node-text-${node.id}`}
             value={node.text}
             rows={4}
             onChange={(e) => updateNodeText(node.id, e.target.value)}
@@ -86,13 +88,17 @@ export const EditPanel: React.FC = () => {
                   </div>
                   <TextInput
                     label="Label"
+                    id={`option-label-${node.id}-${i}`}
+                    name={`option-label-${node.id}-${i}`}
                     value={opt.label}
                     onChange={(e) => updateOptionLabel(node.id, i, e.target.value)}
                     placeholder="Option label..."
                   />
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-xs font-semibold text-accent uppercase tracking-wider">Goes to Node</label>
+                    <label htmlFor={`option-next-${node.id}-${i}`} className="text-xs font-semibold text-accent uppercase tracking-wider">Goes to Node</label>
                     <select
+                      id={`option-next-${node.id}-${i}`}
+                      name={`option-next-${node.id}-${i}`}
                       value={opt.nextId}
                       onChange={(e) => updateOptionTarget(node.id, i, e.target.value)}
                       className="w-full bg-canvas border border-accent/20 rounded-lg text-text-primary text-sm px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-accent/40 cursor-pointer"
