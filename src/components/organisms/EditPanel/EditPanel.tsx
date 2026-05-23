@@ -28,7 +28,7 @@ export const EditPanel: React.FC = () => {
     );
   }
   return (
-    <aside className="w-72 bg-brand border-l border-accent/10 flex flex-col shrink-0 overflow-hidden">
+    <aside className="w-72 bg-brand border-l border-accent/10 flex flex-col shrink-0 min-h-0 overflow-hidden">
       {/* Header */}
       <div className="px-5 py-4 border-b border-accent/10 flex items-center justify-between">
         <div>
@@ -46,7 +46,7 @@ export const EditPanel: React.FC = () => {
         </button>
       </div>
       {/* Scrollable content */}
-      <div className="flex-1 overflow-y-auto p-5 space-y-6 custom-scrollbar">
+      <div className="flex-1 min-h-0 overflow-y-auto p-5 space-y-6 custom-scrollbar">
         {/* Question Text */}
         <section>
           <Textarea
