@@ -13,6 +13,7 @@ export const EditPanel: React.FC = () => {
   const updateOptionTarget = useFlowStore((s) => s.updateOptionTarget);
   const addOption = useFlowStore((s) => s.addOption);
   const removeOption = useFlowStore((s) => s.removeOption);
+  const deleteNode = useFlowStore((s) => s.deleteNode);
   const node = nodes.find((n) => n.id === selectedNodeId);
   if (!node) {
     return (
@@ -127,6 +128,25 @@ export const EditPanel: React.FC = () => {
               <p className="text-[9px] text-accent/40 uppercase tracking-widest">Y</p>
               <p className="text-sm text-text-primary font-mono">{Math.round(node.position.y)}</p>
             </div>
+          </div>
+        </section>
+        <section>
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-xs font-semibold text-accent uppercase tracking-wider">Danger Zone</p>
+              <p className="text-[11px] text-accent/50">Deletes this node and its incoming links.</p>
+            </div>
+            <Button
+              variant="danger"
+              size="sm"
+              onClick={() => {
+                if (window.confirm('Delete this node? This cannot be undone.')) {
+                  deleteNode(node.id);
+                }
+              }}
+            >
+              Delete
+            </Button>
           </div>
         </section>
       </div>

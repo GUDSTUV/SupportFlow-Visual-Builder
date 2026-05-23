@@ -20,6 +20,7 @@ interface FlowStore {
   addOption: (nodeId: string) => void;
   removeOption: (nodeId: string, optionIndex: number) => void;
   addNode: (type: NodeType) => void;
+  deleteNode: (id: string) => void;
   beginNodeDrag: () => void;
   moveNode: (id: string, x: number, y: number) => void;
   // History
@@ -107,15 +108,17 @@ export const useFlowStore = create<FlowStore>((set, get) => ({
     });
   },
   addNode: (type) => {
-    const { nodes, history } = get();
+    const { nodes, history, canvasOffset, canvasScale } = get();
     const nextId = String(
       nodes.reduce((max, node) => Math.max(max, Number(node.id) || 0), 0) + 1,
     );
     const defaultNextId = nodes[0]?.id || '';
-    const index = nodes.length;
-    const col = index % 4;
-    const row = Math.floor(index / 4);
-    const position = { x: 140 + col * 280, y: 120 + row * 220 };
+    const localIndex = nodes.length % 9;
+    const col = localIndex % 3;
+    const row = Math.floor(localIndex / 3);
+    const baseX = (-canvasOffset.x + 80) / canvasScale;
+    const baseY = (-canvasOffset.y + 80) / canvasScale;
+    const position = { x: baseX + col * 280, y: baseY + row * 220 };
     const text =
       type === 'start'
         ? 'New start node'
@@ -131,6 +134,22 @@ export const useFlowStore = create<FlowStore>((set, get) => ({
       future: [],
       nodes: [...nodes, newNode],
       selectedNodeId: nextId,
+    });
+  },
+  deleteNode: (id) => {
+    const { nodes, history, selectedNodeId } = get();
+    const remaining = nodes
+      .filter((node) => node.id !== id)
+      .map((node) => ({
+        ...node,
+        options: node.options.filter((option) => option.nextId !== id),
+      }));
+
+    set({
+      history: [...history.slice(-MAX_HISTORY), snapshot(nodes)],
+      future: [],
+      nodes: remaining,
+      selectedNodeId: selectedNodeId === id ? null : selectedNodeId,
     });
   },
   beginNodeDrag: () => {

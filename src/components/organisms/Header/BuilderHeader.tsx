@@ -43,7 +43,7 @@ export const Header: React.FC = () => {
   }, [menuOpen]);
 
   return (
-    <header className="relative flex flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-6 sm:py-0 sm:h-16 bg-brand border-b border-accent/20">
+    <header className="relative z-30 flex flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-6 sm:py-0 sm:h-16 bg-brand border-b border-accent/20">
       <div className="flex items-center gap-3">
         <div className="h-8 w-8 rounded-lg bg-canvas border border-accent/20 flex items-center justify-center text-accent text-xs font-semibold">
           SF
@@ -58,7 +58,7 @@ export const Header: React.FC = () => {
         </div>
       </div>
 
-      <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[10px] sm:text-[11px] text-accent/40">
+      <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[10px] sm:text-[15px] text-accent/40">
         Alt+drag to pan · Alt+scroll to zoom · Click node to edit
       </div>
 
@@ -73,7 +73,7 @@ export const Header: React.FC = () => {
             Add Node
           </Button>
           {menuOpen ? (
-            <div className="absolute right-0 mt-2 w-44 rounded-xl border border-accent/20 bg-surface/95 shadow-lg shadow-black/40 backdrop-blur">
+            <div className="absolute right-0 mt-2 w-44 rounded-xl border border-accent/20 bg-surface/95 shadow-lg shadow-black/40 backdrop-blur z-40">
               <button
                 className="w-full px-3 py-2 text-left text-xs text-text-primary hover:bg-canvas/70 transition-colors"
                 onClick={() => {
