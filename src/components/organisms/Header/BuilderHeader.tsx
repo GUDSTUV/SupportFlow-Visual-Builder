@@ -45,9 +45,6 @@ export const Header: React.FC = () => {
   return (
     <header className="relative z-30 flex flex-col gap-3 px-4 py-3 md:flex-row md:items-center md:justify-between md:px-6 md:py-0 md:h-16 bg-brand border-b border-accent/20">
       <div className="flex items-center gap-3">
-        <div className="h-8 w-8 rounded-lg bg-canvas border border-accent/20 flex items-center justify-center text-accent text-xs font-semibold">
-          SF
-        </div>
         <div className="flex flex-col">
           <Typography variant="heading" size="md" className="text-base md:text-lg">
             SupportFlow Builder

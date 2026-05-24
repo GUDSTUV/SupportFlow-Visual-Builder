@@ -10,9 +10,6 @@ export const PreviewHeader: React.FC = () => {
 	return (
 		<header className="relative flex flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-6 sm:py-0 sm:h-16 bg-brand border-b border-accent/20">
 			<div className="flex items-center gap-3">
-				<div className="h-8 w-8 rounded-lg bg-canvas border border-accent/20 flex items-center justify-center text-accent text-xs font-semibold">
-					SF
-				</div>
 				<div className="flex flex-col">
 					<Typography variant="heading" size="md" className="text-base sm:text-lg">
 						SupportFlow Preview

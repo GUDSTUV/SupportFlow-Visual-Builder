@@ -159,16 +159,6 @@ export const Canvas: React.FC = () => {
       onMouseLeave={handleMouseUp}
       onWheel={handleWheel}
     >
-      {/* Dot grid background */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: 'radial-gradient(circle, rgba(179, 186, 164, 0.12) 1px, transparent 1px)',
-          backgroundSize: '28px 28px',
-          backgroundPosition: `${canvasOffset.x % 28}px ${canvasOffset.y % 28}px`,
-        }}
-      />
-
       {/* Transformable canvas content */}
       <div
         ref={contentRef}

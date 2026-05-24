@@ -19,9 +19,3 @@ export interface FlowData {
   nodes: FlowNode[];
 }
 export type AppMode = 'editor' | 'preview';
-export interface EdgePath {
-  id: string;
-  path: string;
-  label: string;
-  color: string;
-}
