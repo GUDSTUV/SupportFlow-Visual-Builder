@@ -18,9 +18,9 @@ A visual decision tree editor for building and managing automated customer suppo
 ## Table of Contents
 
 - [Overview](#overview)
+- [Tech Stack](#tech-stack)
 - [Features](#features)
 - [Wildcard Feature](#wildcard-feature)
-- [Tech Stack](#tech-stack)
 - [Getting Started](#getting-started)
 - [Project Structure](#project-structure)
   
@@ -34,9 +34,20 @@ The Visual Builder renders conversation logic as an interactive flowchart, allow
 
 ---
 
-## Features
+## Tech Stack
 
-### Visual Graph
+- React + TypeScript 
+- Styling - Tailwind CSS 
+- State Management - Zustand 
+- Icons - Lucide React 
+- Graph Rendering - Custom SVG 
+- Deployment  - Vercel(https://vercel.com)
+
+---
+
+# Features
+
+## Visual Graph
 The application renders chatbot logic as a connected graph structure.
 
 Implemented Features
@@ -46,27 +57,27 @@ Implemented Features
 - Real-time visual updates
 - Interactive node selection
 
-### Real-Time Editor
+## Real-Time Editor
 
 Clicking any node opens a side panel where managers can update the question text. Changes reflect immediately without page reload or manual refresh.
 
-### Preview Mode
+## Preview Mode
 
 A Play button switches the UI from the flowchart editor into a chat-style interface that simulates the real customer bot experience. The runner starts at the root node, traverses the graph as the user selects answers, and displays a Restart option when a terminal node is reached.
 
-### Draggable Nodes
+## Draggable Nodes
 
 Nodes can be freely repositioned on the canvas by dragging. SVG connector lines recalculate in real time as nodes move, keeping the graph visually accurate at all times.
 
-### Canvas Pan & Zoom
+## Canvas Pan & Zoom
 
 The canvas supports mouse-based panning and scroll-based zooming, enabling managers to navigate large and complex flows comfortably without losing spatial context.
 
-### Undo / Redo
+## Undo / Redo
 
 A full history stack tracks every state-changing action. Managers can undo mistakes and redo changes, giving them a reliable safety net when editing live flows.
 
-### Wildcard Feature
+# Wildcard Feature
 
 ## Add & Delete
 
@@ -74,7 +85,7 @@ The project introduces dynamic node creation as the wildcard feature.
 
 This allows support managers to extend conversation flows directly inside the editor. Instead of being limited to editing existing support flows, teams can create entirely new customer support branches visually.
 
-#### Business Value
+## Business Value
 This feature improves operational flexibility by allowing non-technical teams to:
 - Adapt workflows as policies change
 - Add new support scenarios quickly
@@ -86,7 +97,7 @@ This feature improves operational flexibility by allowing non-technical teams to
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/SupportFlow-Visual-Builder.git
+git clone https://github.com/GUDSTUV/SupportFlow-Visual-Builder.git
 
 # Navigate into the project
 cd SupportFlow-Visual-Builder
@@ -105,20 +116,6 @@ To build for production:
 ```bash
 npm run build
 ```
-
-## Tech Stack
-
-- React + TypeScript 
-- Styling - Tailwind CSS 
-- State Management - Zustand 
-- Icons - Lucide React 
-- Graph Rendering - Custom SVG 
-- Deployment  - Vercel(https://vercel.com) |
-
----
-
-
----
 
 ## Project Structure
 
@@ -153,6 +150,7 @@ src/
 ```
 
 License
+---
 This project is licensed under the MIT License.
 
 
