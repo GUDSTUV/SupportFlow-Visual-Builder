@@ -6,14 +6,13 @@ A visual decision tree editor for building and managing automated customer suppo
 
 ## Live Demo
 
-🔗 [your-deployment-link-here]
+🔗 https://support-flow-visual-builder-taupe.vercel.app/
 
 ---
 
 ## Design File
 
-🎨 [Figma Design System](https://www.figma.com/proto/8GGtwAuB2bnHiSMfgzZVF5/SupportFlow?node-id=0-1&t=H4nGvQVxTCSeFQsC-1)
-
+🎨 https://www.figma.com/design/8GGtwAuB2bnHiSMfgzZVF5/SupportFlow?node-id=4-3&t=H4nGvQVxTCSeFQsC-1
 ---
 
 ## Table of Contents
